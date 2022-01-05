@@ -40,9 +40,11 @@ namespace OnePiece
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+            
             joc.posicioRobot();
             TimeSpan tempsJoc = rellotge.Elapsed;
             ActualitzaTextBlockTemps(tbTempsCronometrat, tempsJoc, "Temps de joc:");
+            ActualitzaTextBlockNMoviments(tbNMoviments, "Moviments Luffy: ", joc.Passos);
         }
         private void ActualitzaTextBlockTemps(TextBlock tb, TimeSpan temps, string titol)
         {

@@ -17,6 +17,7 @@ namespace OnePiece
         Random r = new Random();
         Robot robot;
         Tresor tresor;
+        int passos = 0;
 
         public Tauler(int files, int columnes)
         {
@@ -65,6 +66,7 @@ namespace OnePiece
 
         public int NumFiles { get => numFiles; set => numFiles = value; }
         public int NumColumnes { get => numColumnes; set => numColumnes = value; }
+        public int Passos { get => passos; set => passos = value; }
 
         public bool DestiValid(int fil, int col)
         {
@@ -90,26 +92,27 @@ namespace OnePiece
 
             this.Children.Add(tresor);
         }
-        public void movimentRobot()
+        public int movimentRobot()
         {
             switch (robot.OnMira)
             {
                 case Direccio.Sud:
-                    Mou(robot.Fila, robot.Columna, robot.Fila + 1, robot.Columna);
+                    Passos=Mou(robot.Fila, robot.Columna, robot.Fila + 1, robot.Columna,Passos);
                     break;
                 case Direccio.Est:
-                    Mou(robot.Fila, robot.Columna, robot.Fila, robot.Columna + 1);
+                    Passos=Mou(robot.Fila, robot.Columna, robot.Fila, robot.Columna + 1,Passos);
                     break;
                 case Direccio.Oest:
-                    Mou(robot.Fila, robot.Columna, robot.Fila, robot.Columna - 1);
+                    Passos = Mou(robot.Fila, robot.Columna, robot.Fila, robot.Columna - 1,Passos);
                     break;
                 case Direccio.Nord:
-                    Mou(robot.Fila, robot.Columna, robot.Fila - 1, robot.Columna);
+                    Passos = Mou(robot.Fila, robot.Columna, robot.Fila - 1, robot.Columna,Passos);
                     break;
             }
+            return Passos;
         }
 
-        public void posicioRobot()
+        public int posicioRobot()
         {
             int atzar = r.Next(0, 4);
             if (atzar == 0)
@@ -122,9 +125,10 @@ namespace OnePiece
             }
             else
             {
-                movimentRobot();
+                Passos=movimentRobot();
             }
             ActualitzarImatge();
+            return Passos;
         }
 
         private void GiraDreta()
@@ -185,10 +189,11 @@ namespace OnePiece
             }
         }
 
-        public void Mou(int filOrig, int colOrig, int filDesti, int colDesti)
+        public int Mou(int filOrig, int colOrig, int filDesti, int colDesti, int pasos)
         {
             if (DestiValid(filDesti, colDesti))
             {
+                pasos++;
                 Posicio origen = terreny[filOrig, colOrig];
                 terreny[filOrig, colOrig] = new Posicio(filOrig, colOrig);
                 origen.Fila = filDesti;
@@ -198,7 +203,7 @@ namespace OnePiece
                 terreny[filDesti, colDesti].SetValue(Grid.ColumnProperty, colDesti);
 
             }
-
+            return pasos;
         }
     }
 }
