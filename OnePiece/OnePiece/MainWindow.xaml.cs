@@ -49,5 +49,11 @@ namespace OnePiece
             tb.Text = String.Format(titol + " {0:00}:{1:00}:{2:00}", temps.Hours, temps.Minutes, temps.Seconds);
         }
         
+
+        private void ActualitzaTextBlockNMoviments(TextBlock tb, string titol, int comptador)
+        {
+            tb.Text = String.Format(titol + "{0}", comptador);
+        }
+
     }
 }
