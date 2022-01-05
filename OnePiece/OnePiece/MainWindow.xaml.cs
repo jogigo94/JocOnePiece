@@ -40,5 +40,9 @@ namespace OnePiece
         {
             joc.posicioRobot();
         }
+        private void ActualitzaTextBlockNMoviments(TextBlock tb, string titol, int comptador)
+        {
+            tb.Text = String.Format(titol + "{0}", comptador);
+        }
     }
 }
