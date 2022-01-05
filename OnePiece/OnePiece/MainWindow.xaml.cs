@@ -44,7 +44,16 @@ namespace OnePiece
             joc.posicioRobot();
             TimeSpan tempsJoc = rellotge.Elapsed;
             ActualitzaTextBlockTemps(tbTempsCronometrat, tempsJoc, "Temps de joc:");
+
+            if (joc.jocAcabat())
+            {
+                timer.Stop();
+                Window finestra = new wndFinal();
+                finestra.ShowDialog();
+            }
+
             ActualitzaTextBlockNMoviments(tbNMoviments, "Moviments Luffy: ", joc.Passos);
+
         }
         private void ActualitzaTextBlockTemps(TextBlock tb, TimeSpan temps, string titol)
         {
@@ -56,6 +65,6 @@ namespace OnePiece
         {
             tb.Text = String.Format(titol + "{0}", comptador);
         }
-
+        
     }
 }
